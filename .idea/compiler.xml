@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+      <entry name="!?*.aj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Annotation profile for JaxRsServiceManager" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="JaxRsServiceManager" />
+      </profile>
+      <profile default="false" name="Annotation profile for Rest" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Rest" />
+      </profile>
+      <profile default="false" name="Annotation profile for Persistence" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Persistence" />
+      </profile>
+      <profile default="false" name="Annotation profile for Domain" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Domain" />
+      </profile>
+      <profile default="false" name="Annotation profile for Consumer" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Consumer" />
+      </profile>
+      <profile default="false" name="Annotation profile for OrikaMapperService" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="OrikaMapperService" />
+      </profile>
+      <profile default="false" name="Annotation profile for tyreshop-persistence" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="tyreshop-persistence" />
+      </profile>
+      <profile default="false" name="Annotation profile for TyreshopRest" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="TyreshopRest" />
+      </profile>
+      <profile default="false" name="Annotation profile for TyreshopConsumer" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="TyreshopConsumer" />
+      </profile>
+      <profile default="false" name="Annotation profile for TyreshopPersistence" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="TyreshopPersistence" />
+      </profile>
+      <profile default="false" name="Annotation profile for TyreshopDomain" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="TyreshopDomain" />
+      </profile>
+      <profile default="false" name="Annotation profile for CommonPersistence" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="CommonPersistence" />
+      </profile>
+      <profile default="false" name="Annotation profile for orika-mapper-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Annotation profile for hu.blackbelt.tyreshop.rest" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Annotation profile for hu.blackbelt.core.orika" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="hu.blackbelt.core.orika" />
+      </profile>
+      <profile default="false" name="Annotation profile for hu.blackbelt.core.webservice" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="hu.blackbelt.core.webservice" />
+      </profile>
+      <profile default="false" name="Annotation profile for hu.blackbelt.core.persistence" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="hu.blackbelt.core.persistence" />
+      </profile>
+      <profile default="false" name="Annotation profile for hu.blackbelt.tyreshop.consumer" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="hu.blackbelt.tyreshop.consumer" />
+      </profile>
+      <profile default="false" name="Annotation profile for hu.blackbelt.tyreshop.persistence" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="hu.blackbelt.tyreshop.persistence" />
+      </profile>
+      <profile default="false" name="Annotation profile for hu.blackbelt.tyreshop.domain" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="hu.blackbelt.tyreshop.domain" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="Demo" target="1.8" />
+      <module name="hu.blackbelt.core.orika" target="1.8" />
+      <module name="hu.blackbelt.core.persistence" target="1.8" />
+      <module name="hu.blackbelt.core.webservice" target="1.8" />
+      <module name="hu.blackbelt.tyreshop.consumer" target="1.8" />
+      <module name="hu.blackbelt.tyreshop.domain" target="1.8" />
+      <module name="hu.blackbelt.tyreshop.persistence" target="1.8" />
+      <module name="hu.blackbelt.tyreshop.rest" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
