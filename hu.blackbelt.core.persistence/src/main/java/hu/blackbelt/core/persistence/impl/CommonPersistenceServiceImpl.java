@@ -2,7 +2,6 @@ package hu.blackbelt.core.persistence.impl;
 
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.HSQLDBTemplates;
-import com.querydsl.sql.SQLQuery;
 import com.querydsl.sql.SQLQueryFactory;
 import com.querydsl.sql.SQLTemplates;
 import hu.blackbelt.core.persistence.api.CommonPersistenceService;
@@ -18,18 +17,20 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.hsqldb.jdbc.JDBCDataSource;
+import org.osgi.service.component.annotations.Reference;
 
-@Component(immediate = true, service = CommonPersistenceService.class)
+@Component(immediate = true, service = CommonPersistenceService.class,
+        property={CommonPersistenceServiceImpl.PROP_DATASOURCE_READY + ".target=(dataSourceReady=" + CommonPersistenceServiceImpl.DEFAULT_DATASOURCE_NAME + ")"})
 public class CommonPersistenceServiceImpl implements CommonPersistenceService {
 
+    public static final String PROP_DATASOURCE_READY = "dataSourceReady";
+    public static final String DEFAULT_DATASOURCE_NAME = "testdb";
+
+    @Reference(name = CommonPersistenceServiceImpl.PROP_DATASOURCE_READY)
     private DataSource dataSource;
 
     @Activate
     public void activate() {
-        this.dataSource = this.dataSource();
-        this.querydslConfiguration();
-
         try {
             this.test();
         } catch (Exception e) {
@@ -42,16 +43,6 @@ public class CommonPersistenceServiceImpl implements CommonPersistenceService {
     @Deactivate
     public void deactivate() {
         System.err.println("CommonPersistenceService.deactivate");
-    }
-
-    public DataSource dataSource() {
-        JDBCDataSource ds = new JDBCDataSource();
-        ds.setURL("jdbc:hsqldb:hsql://localhost/testdb");
-        ds.setDatabaseName("testdb");
-        ds.setUser("RON");
-        ds.setPassword("strong-random-password");
-
-        return ds;
     }
 
     public Configuration querydslConfiguration() {
@@ -70,6 +61,10 @@ public class CommonPersistenceServiceImpl implements CommonPersistenceService {
             QCar car = new QCar("c");
 
             SQLQueryFactory queryFactory = new SQLQueryFactory(querydslConfiguration(), dataSource);
+
+            queryFactory.insert(car)
+                    .columns(car.licenseplate, car.rim, car.speed)
+                    .values("AAAA", "ASD", 12).execute();
 
             List<Long> cars = queryFactory.select(car.count()).from(car).fetch();
 

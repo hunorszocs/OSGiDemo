@@ -1,15 +1,15 @@
 package hu.blackbelt.core.persistence;
 
-import hu.blackbelt.core.persistence.api.CommonPersistenceService;
-import hu.blackbelt.core.persistence.impl.CommonPersistenceServiceImpl;
-import org.hsqldb.jdbc.JDBCDataSource;
+import hu.blackbelt.core.persistence.impl.HsqldbDataSourceFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Properties;
 
 public class Activator implements BundleActivator {
 
@@ -17,16 +17,20 @@ public class Activator implements BundleActivator {
 
     @Override
     public void start(BundleContext bundleContext) throws Exception {
-        JDBCDataSource ds = new JDBCDataSource();
-        ds.setURL("jdbc:hsqldb:hsql://localhost/testdb");
-        ds.setDatabaseName("testdb");
-        ds.setUser("RON");
-        ds.setPassword("strong-random-password");
+        HsqldbDataSourceFactory dsf = new HsqldbDataSourceFactory();
+
+        Properties dataSourceProperties = new Properties();
+        dataSourceProperties.setProperty("url", "jdbc:hsqldb:hsql://localhost/testdb");
+        dataSourceProperties.setProperty("user", "RON");
+        dataSourceProperties.setProperty("password", "strong-random-password");
+        dataSourceProperties.setProperty("databaseName", "testdb");
+
+        DataSource ds = dsf.createDataSource(dataSourceProperties);
 
         try (Connection con = ds.getConnection()) {
             Dictionary props = new Hashtable<>();
-            props.put("commonPersistenceService", "testdb");
-            serviceRegistration = bundleContext.registerService(CommonPersistenceService.class, new CommonPersistenceServiceImpl(), props);
+            props.put("dataSourceReady", "testdb");
+            serviceRegistration = bundleContext.registerService(DataSource.class, ds, props);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
