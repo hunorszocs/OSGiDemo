@@ -1,19 +1,5 @@
 .*
-rm .*
 !/.gitignore
 /**/target/
-/restaggregator-maven-plugin/target/
-/log/
-/sling/
 *.iml
-*.ids
-*.ipr
-*.iws
-/lib
-!/lib/tomcat*
-!/lib/slf4j*
 .idea
-*.xml~
-nohup.out
-/deprecated
-npm-debug.log
