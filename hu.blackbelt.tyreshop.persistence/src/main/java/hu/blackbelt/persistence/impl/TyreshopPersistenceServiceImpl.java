@@ -1,7 +1,10 @@
 package hu.blackbelt.persistence.impl;
 
+import com.querydsl.sql.SQLQuery;
+import com.querydsl.sql.SQLQueryFactory;
 import hu.blackbelt.core.persistence.api.CommonPersistenceService;
 import hu.blackbelt.core.persistence.entity.Car;
+import hu.blackbelt.core.persistence.entity.QCar;
 import hu.blackbelt.persistence.api.TyreshopPersistenceService;
 import hu.blackbelt.persistence.model.TyreshopCarsResponsePersistenceDTO;
 import hu.blackbelt.persistence.model.TyreshopPrintRequestPersistenceDTO;
@@ -41,7 +44,12 @@ public class TyreshopPersistenceServiceImpl implements TyreshopPersistenceServic
     public TyreshopCarsResponsePersistenceDTO getCars() {
         TyreshopCarsResponsePersistenceDTO response = new TyreshopCarsResponsePersistenceDTO();
 
-        List<Car> cars = commonPersistenceService.listAll(Car.class);
+        SQLQueryFactory sqlQueryFactory = commonPersistenceService.getQueryFactory();
+
+        QCar car = new QCar("c");
+
+        List<Car> cars = sqlQueryFactory.select(car).from(car).fetch();
+
         response.setCars(cars);
 
         return response;

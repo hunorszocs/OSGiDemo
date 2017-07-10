@@ -1,40 +1,63 @@
 package hu.blackbelt.core.persistence.impl;
 
-import com.querydsl.sql.Configuration;
-import com.querydsl.sql.HSQLDBTemplates;
-import com.querydsl.sql.SQLQueryFactory;
-import com.querydsl.sql.SQLTemplates;
+import com.querydsl.sql.*;
 import hu.blackbelt.core.persistence.api.CommonPersistenceService;
 import hu.blackbelt.core.persistence.entity.Car;
 import hu.blackbelt.core.persistence.entity.QCar;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
+import lombok.extern.slf4j.Slf4j;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.component.annotations.*;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.Designate;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
+import java.math.BigInteger;
 import java.sql.Connection;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.osgi.service.component.annotations.Reference;
-
-@Component(immediate = true, service = CommonPersistenceService.class,
-        property={CommonPersistenceServiceImpl.PROP_DATASOURCE_READY + ".target=(dataSourceReady=" + CommonPersistenceServiceImpl.DEFAULT_DATASOURCE_NAME + ")"})
+@Component(immediate = true, service = CommonPersistenceService.class)
+@Designate(ocd = CommonPersistenceServiceImpl.Config.class)
+@Slf4j
 public class CommonPersistenceServiceImpl implements CommonPersistenceService {
 
-    public static final String PROP_DATASOURCE_READY = "dataSourceReady";
-    public static final String DEFAULT_DATASOURCE_NAME = "testdb";
+    private BundleContext bundleContext;
+    private String dataSourceName;
+    private String databaseType;
 
-    @Reference(name = CommonPersistenceServiceImpl.PROP_DATASOURCE_READY)
+private SQLQueryFactory queryFactory;
     private DataSource dataSource;
 
+    @ObjectClassDefinition(name = "Common Persistence Configuration")
+    public @interface Config {
+        @AttributeDefinition(name = "Datasource Name")
+        String datasource_name();
+
+        @AttributeDefinition(name = "Database Type")
+        String database_type();
+    }
+
     @Activate
-    public void activate() {
+    @Modified
+    public void activate(Config config, BundleContext bundleContext) {
+        this.bundleContext = bundleContext;
+        this.dataSourceName = config.datasource_name();
+        this.databaseType = config.database_type();
+
         try {
-            this.test();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            final Collection<ServiceReference<DataSource>> srs = bundleContext.getServiceReferences(DataSource.class, "(dataSourceName=" + dataSourceName + ")");
+            for (final ServiceReference<DataSource> sr : srs) {
+                dataSource = bundleContext.getService(sr);
+            }
+
+            queryFactory = new SQLQueryFactory(querydslConfiguration(), dataSource);
+
+        } catch (InvalidSyntaxException ex) {
+            System.err.println("Invalid OSGi filter definition, no data is filtered");
         }
 
         System.err.println("CommonPersistenceService.activated");
@@ -46,58 +69,14 @@ public class CommonPersistenceServiceImpl implements CommonPersistenceService {
     }
 
     public Configuration querydslConfiguration() {
-        SQLTemplates templates = HSQLDBTemplates.builder()
-                .printSchema()
-                .quote()
-                .newLineToSingleSpace()
-                .build();
-        Configuration configuration = new Configuration(templates);
+        Configuration configuration = new Configuration(QuerydslDatabaseTemplate.TEMPLATES.get(databaseType));
 
         return configuration;
     }
 
-    public void test() throws Exception {
-        try (Connection con = dataSource.getConnection()) {
-            QCar car = new QCar("c");
-
-            SQLQueryFactory queryFactory = new SQLQueryFactory(querydslConfiguration(), dataSource);
-
-            queryFactory.insert(car)
-                    .columns(car.licenseplate, car.rim, car.speed)
-                    .values("AAAA", "ASD", 12).execute();
-
-            List<Long> cars = queryFactory.select(car.count()).from(car).fetch();
-
-            System.out.println(".......... Juhejj, elertunk idaig:  " + cars.toString());
-
-            List<Double> lastNames = queryFactory.select(car.speed).from(car).fetch();
-
-            System.out.println(".......... Juhejj, elertunk idaig:  " + lastNames.toString());
-
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
-
     @Override
-    public <T> List<T> listAll(Class T) {
-        List<T> cars = new ArrayList<>();
-        Car car = new Car();
-//        car.setLicensePlate("AAA-123");
-        car.setRim("BSD");
-        car.setSpeed(120.0);
-        cars.add((T) car);
-
-        return cars;
-        //return list("Select * from car c;");
+    public SQLQueryFactory getQueryFactory() {
+        return queryFactory;
     }
-
-    protected <T> List<T> list(String jpql) {
-        //Query query = entityManager.createQuery(jpql);
-        return null; //query.getResultList();
-    }
-
 
 }
