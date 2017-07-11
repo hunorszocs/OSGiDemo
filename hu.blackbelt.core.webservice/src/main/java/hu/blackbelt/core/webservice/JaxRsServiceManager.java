@@ -19,11 +19,7 @@ import org.apache.cxf.transport.http.HTTPTransportFactory;
 import org.apache.cxf.transport.servlet.CXFNonSpringServlet;
 import org.apache.sling.commons.mime.MimeTypeService;
 import org.osgi.framework.*;
-import org.osgi.service.component.ComponentContext;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.*;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
@@ -63,7 +59,7 @@ public class JaxRsServiceManager implements ServiceListener {
     public static final String DEFAULT_SERVICE_ROOT_URL = "/webservices";
 
     public static final String PROP_SERVICE_PACKAGE_ROOT = "packageRoot";
-    public static final String DEFAULT_SERVICE_PACKAGE_ROOT = "hu.blackbelt.demo";
+    public static final String DEFAULT_SERVICE_PACKAGE_ROOT = "hu.blackbelt";
 
     public static final String PROP_REQUEST_LOG = "request.log";
     public static final boolean DEFAULT_REQUEST_LOG = false;
@@ -76,10 +72,10 @@ public class JaxRsServiceManager implements ServiceListener {
     private String packageRoot = PROP_SERVICE_PACKAGE_ROOT;
 
 
-    @Reference
+    @Reference(cardinality = ReferenceCardinality.MANDATORY, policy = ReferencePolicy.DYNAMIC)
     private volatile HttpService osgiHttpService;
 
-    @Reference
+    @Reference(cardinality = ReferenceCardinality.MANDATORY, policy = ReferencePolicy.DYNAMIC)
     private volatile MimeTypeService mimeTypeService;
 
     private BundleContext context;
@@ -97,7 +93,7 @@ public class JaxRsServiceManager implements ServiceListener {
     private Map<Class<?>, Object> registeredProviders = new ConcurrentHashMap<>();
 
     @Activate
-    protected void activate(ComponentContext context) {
+    protected void activate(BundleContext context) {
 
         System.out.println(" --- Activating WebServiceRegistrationListener");
 
@@ -171,7 +167,7 @@ public class JaxRsServiceManager implements ServiceListener {
                     filter = new WebServiceThreadLocalRequestFilter();
                     filter.setWebServiceRegistrationListener(this);
 
-                    filterRegistration = context.getBundleContext().registerService(Filter.class.getName(), filter, filterProps);
+                    filterRegistration = context.registerService(Filter.class.getName(), filter, filterProps);
 
                 } catch (ServletException e) {
                     log.error("Error on servlet registration: {} - {}", serviceRootUrl, e.getLocalizedMessage());
@@ -190,7 +186,7 @@ public class JaxRsServiceManager implements ServiceListener {
         }
 
         // The listener can process changes from here
-        this.context = context.getBundleContext();
+        this.context = context;
 
         // If this started later we search for all references to register
         try {
@@ -208,15 +204,15 @@ public class JaxRsServiceManager implements ServiceListener {
 
         restartJaxRsServer();
         System.out.println(" --- Adding OSGi service listener");
-        context.getBundleContext().addServiceListener(this);
+        context.addServiceListener(this);
     }
 
     @Deactivate
-    protected void deactivate(ComponentContext context) {
+    protected void deactivate(BundleContext context) {
         // Remove OSGi service listener
         try {
             System.out.println(" --- Remove OSGi service listener");
-            context.getBundleContext().removeServiceListener(this);
+            context.removeServiceListener(this);
         } catch (Exception e) {
             log.error("Could not get unregister service listener - {}", e.getLocalizedMessage());
             log.debug("Exception: ", e);
@@ -230,7 +226,7 @@ public class JaxRsServiceManager implements ServiceListener {
         if (filterRegistration != null) {
             System.out.println(" --- Unregistering WebServiceThreadLocalRequestFilter");
             try {
-                context.getBundleContext().ungetService(filterRegistration.getReference());
+                context.ungetService(filterRegistration.getReference());
             } catch (Exception e) {
                 log.error("Could not unregister WebServiceThreadLocalRequestFilter - {}", e.getLocalizedMessage());
                 log.debug("Exception: ", e);
@@ -424,7 +420,6 @@ public class JaxRsServiceManager implements ServiceListener {
         Map<Object, Object> extensionMappings = new HashMap<Object, Object>();
         extensionMappings.put("xml", "application/xml");
         extensionMappings.put("json", "application/json");
-
 
 
         // But we have to able to define the XSLT file for the proveder, we need

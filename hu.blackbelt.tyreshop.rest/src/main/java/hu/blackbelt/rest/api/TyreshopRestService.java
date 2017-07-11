@@ -17,12 +17,12 @@ public interface TyreshopRestService {
     @POST
     @Path("/print")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    TyreshopPrintResponseRestDTO print(TyreshopPrintRequestRestDTO request);
+    @Produces(MediaType.TEXT_PLAIN)
+    String print(TyreshopPrintRequestRestDTO request);
 
     @GET
     @Path("/getCars")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
     TyreshopCarsResponseRestDTO getCars();
 }

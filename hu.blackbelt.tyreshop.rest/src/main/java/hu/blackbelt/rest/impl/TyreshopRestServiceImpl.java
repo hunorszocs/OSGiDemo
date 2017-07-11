@@ -36,11 +36,12 @@ public class TyreshopRestServiceImpl implements TyreshopRestService {
     }
 
     @Override
-    public TyreshopPrintResponseRestDTO print(TyreshopPrintRequestRestDTO request) {
-        TyreshopPrintRequestDomainDTO demoPrintRequestPersistenceDTO = mapperService.getMapper().map(request, TyreshopPrintRequestDomainDTO.class);
-        TyreshopPrintResponseDomainDTO result = demoDomainService.print(demoPrintRequestPersistenceDTO);
-
-        return mapperService.getMapper().map(result, TyreshopPrintResponseRestDTO.class);
+    public String print(TyreshopPrintRequestRestDTO request) {
+//        TyreshopPrintRequestDomainDTO demoPrintRequestPersistenceDTO = mapperService.getMapper().map(request, TyreshopPrintRequestDomainDTO.class);
+//        TyreshopPrintResponseDomainDTO result = demoDomainService.print(demoPrintRequestPersistenceDTO);
+//
+//        return mapperService.getMapper().map(result, TyreshopPrintResponseRestDTO.class);
+        return request.getMessage();
     }
 
     @Override

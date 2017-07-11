@@ -1,10 +1,13 @@
 package hu.blackbelt.core.persistence.entity;
 
+import lombok.Data;
+
 import javax.annotation.Generated;
 
 /**
  * Car is a Querydsl bean type
  */
+@Data
 @Generated("com.querydsl.codegen.BeanSerializer")
 public class Car {
 

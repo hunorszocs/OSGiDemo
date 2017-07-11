@@ -13,7 +13,28 @@
 
     <packaging>bundle</packaging>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.osgi/org.osgi.service.http -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.http</artifactId>
+            <version>1.2.1</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.osgi/org.osgi.service.component.annotations -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -84,6 +105,18 @@
             <artifactId>cxf-rt-rs-extension-providers</artifactId>
             <version>3.1.7</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.servicemix.specs/org.apache.servicemix.specs.jaxb-api-2.2 -->
+        <dependency>
+            <groupId>org.apache.servicemix.specs</groupId>
+            <artifactId>org.apache.servicemix.specs.jaxb-api-2.2</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-databinding-jaxb -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-databinding-jaxb</artifactId>
+            <version>3.1.7</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -115,185 +148,50 @@
             <version>4.2</version>
         </dependency>
         <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.transaction.api</artifactId>
-            <version>1.0.13</version>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.12</version>
         </dependency>
         <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.http.api</artifactId>
-            <version>1.0.13</version>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.6</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
         <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.framework.orika</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.converter.api</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.converter.orika</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.persistence</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.persistence.multitenancy</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.persistence.jooq</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.persistence.jooq.multitenancy</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.persistence.jooq.test</artifactId>
-            <version>1.0.13</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.transaction.jooq</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.authentication.api</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.authentication.token</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.scripting.api</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.content.api</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.scripting.jsp</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.swagger.codegen</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.util.log4jluceneappender</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.util.osgiconfigloader</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.util.excelexport</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.webconsole.branding</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.dbaccess.oracle</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.dbaccess.pool-dbcp</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.avon</groupId>-->
-            <!--<artifactId>com.avon.webservice</artifactId>-->
-            <!--<version>1.0.13</version>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.util.ajaxterm</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.search.solr.servlet</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.scripting.jsp.taglib.jstl</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.scripting.jsp.taglib.struts</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avon</groupId>
-            <artifactId>com.avon.maps.util</artifactId>
-            <version>1.0.13</version>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.11.0</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>3.3.0</version>
-                <extensions>true</extensions>
                 <configuration>
-                    <buildDirectory>/home/hunor.szocs/dev/apache-karaf-4.1.1/deploy</buildDirectory>
                     <instructions>
+                        <Bundle-SymbolicName>CommonWebserviceBundle</Bundle-SymbolicName>
                         <Bundle-Name>BLACKBELT :: JAXRS :: WEBSERVICE</Bundle-Name>
                         <Include-Resource>
                             {maven-resources}
                         </Include-Resource>
                         <Embed-Dependency>
                             reflections;scope=provided,
-                            commons-vfs2;scope=provided
+                            commons-vfs2;scope=provided,
+                            jaxb-impl, xercesImpl
+                            <!--xercesImpl;scope=provided-->
                         </Embed-Dependency>
+                        <DynamicImport-Package>
+                            com.fasterxml.jackson.*
+                        </DynamicImport-Package>
                         <Import-Package>
                             com.jcraft.jsch.*;resolution:=optional,
                             org.apache.commons.net.ftp.*;resolution:=optional,
                             org.apache.jackrabbit.webdav.*;resolution:=optional,
                             org.apache.tools.ant.*;resolution:=optional,
+                            sun.*,
                             *
                         </Import-Package>
                     </instructions>

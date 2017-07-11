@@ -11,6 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TyreshopPrintRequestRestDTO {
-    @XmlElement
+    @XmlElement(name="message")
     private String message;
 }
